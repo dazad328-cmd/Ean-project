@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solución Examen Estadística - EAN</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; max-width: 900px; margin: auto; padding: 30px; background-color: #f0f2f5; }
+        .card { background: white; padding: 25px; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-left: 8px solid #2563eb; }
+        h1 { color: #1e40af; text-align: center; }
+        h2 { color: #1e40af; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; }
+        .formula { background: #f8fafc; padding: 15px; border-radius: 8px; font-family: monospace; font-weight: bold; margin: 10px 0; border: 1px solid #cbd5e1; }
+        .resultado { color: #059669; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Resolución Examen: Probabilidad y Estadística Inferencial</h1>
+
+    <div class="card">
+        <h2>1. Teorema Central del Límite</h2>
+        <p><strong>Pregunta:</strong> ¿La población cambia y se vuelve normal al aumentar la muestra? [cite: 2, 3]</p>
+        <p><strong>Respuesta:</strong> Es <strong>incorrecto</strong>[cite: 3]. El teorema establece que es la <strong>distribución muestral de las medias</strong> la que tiende a la normalidad, no la población original[cite: 3].</p>
+    </div>
+
+    <div class="card">
+        <h2>2. Prueba de Hipótesis (Conductores)</h2>
+        <p>Datos: μ₀=850ms, n=18, x̄=812ms, s=74ms, α=0.05[cite: 5, 6, 8, 9].</p>
+        <div class="formula">t = (x̄ - μ₀) / (s / √n)</div>
+        <p id="calc-t"></p>
+        <p><strong>Grados de libertad:</strong> 17 | <strong>t-crítico:</strong> -1.740 [cite: 19]</p>
+        <p id="res-t" class="resultado"></p>
+    </div>
+
+    <div class="card">
+        <h2>3. Intervalo de Confianza (Fintech)</h2>
+        <p>Datos: n=400, cumplidos=312, Confianza=95%[cite: 13, 14, 15].</p>
+        <div class="formula">p̂ ± Z * √[p̂(1-p̂) / n]</div>
+        <p id="calc-p"></p>
+        <p><strong>Z crítico:</strong> 1.96 [cite: 17]</p>
+        <p id="res-p" class="resultado"></p>
+    </div>
+
+    <script>
+        // Lógica Punto 2
+        const t_calc = (812 - 850) / (74 / Math.sqrt(18));
+        document.getElementById('calc-t').innerHTML = `t-calculado: <strong>${t_calc.toFixed(4)}</strong>`;
+        document.getElementById('res-t').innerHTML = t_calc < -1.740 
+            ? "Conclusión: Se rechaza H₀. La pastilla reduce significativamente el tiempo de reacción." 
+            : "Conclusión: No se rechaza H₀.";
+
+        // Lógica Punto 3
+        const p_hat = 312 / 400;
+        const error = 1.96 * Math.sqrt((p_hat * (1 - p_hat)) / 400);
+        document.getElementById('calc-p').innerHTML = `p̂ = ${p_hat} | Margen de Error = ${error.toFixed(4)}`;
+        document.getElementById('res-p').innerHTML = `Intervalo: [${(p_hat - error).toFixed(4)} , ${(p_hat + error).toFixed(4)}]`;
+    </script>
+</body>
+</html>
